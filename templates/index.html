@@ -97,108 +97,45 @@
     <!-- Products -->
     <section class="products" id="products">
 
-        <h2>Popular Products</h2>
+    <h2>Popular Products</h2>
 
-        <div class="product-container">
+    <div class="product-container">
 
-            <!-- Product 1 -->
-            <div class="product-card">
+        {% for product in products %}
 
-                <div class="product-image">
-                    📱
-                </div>
+        <div class="product-card">
 
-                <h3>Smartphone</h3>
-
-                <p class="category">
-                    Electronics
-                </p>
-
-                <p class="price">
-                    ₹19,999
-                </p>
-
-                <button onclick="addToCart()">
-                    Add to Cart
-                </button>
-
+            <div class="product-image">
+                {{ product["image"] }}
             </div>
 
+            <h3>
+                {{ product["name"] }}
+            </h3>
 
-            <!-- Product 2 -->
-            <div class="product-card">
+            <p class="category">
+                {{ product["category"] }}
+            </p>
 
-                <div class="product-image">
-                    👕
-                </div>
+            <p class="price">
+                ₹{{ product["price"] }}
+            </p>
 
-                <h3>Casual T-Shirt</h3>
+            <p>
+                {{ product["description"] }}
+            </p>
 
-                <p class="category">
-                    Clothing
-                </p>
-
-                <p class="price">
-                    ₹599
-                </p>
-
-                <button onclick="addToCart()">
-                    Add to Cart
-                </button>
-
-            </div>
-
-
-            <!-- Product 3 -->
-            <div class="product-card">
-
-                <div class="product-image">
-                    👟
-                </div>
-
-                <h3>Running Shoes</h3>
-
-                <p class="category">
-                    Shoes
-                </p>
-
-                <p class="price">
-                    ₹1,999
-                </p>
-
-                <button onclick="addToCart()">
-                    Add to Cart
-                </button>
-
-            </div>
-
-
-            <!-- Product 4 -->
-            <div class="product-card">
-
-                <div class="product-image">
-                    📚
-                </div>
-
-                <h3>Programming Book</h3>
-
-                <p class="category">
-                    Books
-                </p>
-
-                <p class="price">
-                    ₹799
-                </p>
-
-                <button onclick="addToCart()">
-                    Add to Cart
-                </button>
-
-            </div>
+            <button onclick="addToCart()">
+                Add to Cart
+            </button>
 
         </div>
 
-    </section>
+        {% endfor %}
+
+    </div>
+
+</section>
 
 
     <!-- Footer -->
