@@ -43,7 +43,7 @@
                 Discover amazing products at great prices.
             </p>
 
-            <button onclick="scrollToProducts()">
+            <button id="shop-now-button">
                 Shop Now
             </button>
 
@@ -97,45 +97,50 @@
     <!-- Products -->
     <section class="products" id="products">
 
-    <h2>Popular Products</h2>
+        <h2>Popular Products</h2>
 
-    <div class="product-container">
+        <div class="product-container">
 
-        {% for product in products %}
+            {% for product in products %}
 
-        <div class="product-card">
+            <div class="product-card">
 
-            <div class="product-image">
-                {{ product["image"] }}
+                <div class="product-image">
+                    {{ product["image"] }}
+                </div>
+
+                <h3>
+                    {{ product["name"] }}
+                </h3>
+
+                <p class="category">
+                    {{ product["category"] }}
+                </p>
+
+                <p class="price">
+                    ₹{{ product["price"] }}
+                </p>
+
+                <p>
+                    {{ product["description"] }}
+                </p>
+
+                <button
+                    class="add-to-cart-button"
+                    data-id="{{ product['id'] }}"
+                    data-name="{{ product['name'] }}"
+                    data-price="{{ product['price'] }}"
+                    data-image="{{ product['image'] }}">
+                    Add to Cart
+                </button>
+
             </div>
 
-            <h3>
-                {{ product["name"] }}
-            </h3>
-
-            <p class="category">
-                {{ product["category"] }}
-            </p>
-
-            <p class="price">
-                ₹{{ product["price"] }}
-            </p>
-
-            <p>
-                {{ product["description"] }}
-            </p>
-
-            <button onclick="addToCart()">
-                Add to Cart
-            </button>
+            {% endfor %}
 
         </div>
 
-        {% endfor %}
-
-    </div>
-
-</section>
+    </section>
 
 
     <!-- Footer -->
