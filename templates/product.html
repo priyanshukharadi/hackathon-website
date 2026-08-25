@@ -1,0 +1,166 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta charset="UTF-8">
+
+    <meta
+        name="viewport"
+        content="width=device-width, initial-scale=1.0"
+    >
+
+    <title>
+        {{ product["name"] }} - ShopEasy
+    </title>
+
+    <link
+        rel="stylesheet"
+        href="{{ url_for('static', filename='style.css') }}"
+    >
+
+</head>
+
+
+<body>
+
+
+    <!-- Navigation -->
+
+    <header class="navbar">
+
+        <div class="logo">
+            🛒 ShopEasy
+        </div>
+
+
+        <nav>
+
+            <a href="/">
+                Home
+            </a>
+
+            <a href="/#products">
+                Products
+            </a>
+
+            <a href="/#categories">
+                Categories
+            </a>
+
+        </nav>
+
+
+        <a href="/cart" class="cart-link">
+
+            🛒 Cart
+            <span id="cart-count">0</span>
+
+        </a>
+
+    </header>
+
+
+
+    <!-- Product Details -->
+
+    <main class="product-details-page">
+
+        <div class="product-details">
+
+
+            <!-- Product Image -->
+
+            <div class="product-details-image">
+
+                {{ product["image"] }}
+
+            </div>
+
+
+
+            <!-- Product Information -->
+
+            <div class="product-details-info">
+
+                <p class="product-category">
+
+                    {{ product["category"] }}
+
+                </p>
+
+
+                <h1>
+
+                    {{ product["name"] }}
+
+                </h1>
+
+
+                <p class="product-details-price">
+
+                    ₹{{ product["price"] }}
+
+                </p>
+
+
+                <p class="product-description">
+
+                    {{ product["description"] }}
+
+                </p>
+
+
+                <button
+                    class="details-cart-button"
+                    data-id="{{ product['id'] }}"
+                    data-name="{{ product['name'] }}"
+                    data-price="{{ product['price'] }}"
+                    data-image="{{ product['image'] }}"
+                >
+
+                    Add to Cart 🛒
+
+                </button>
+
+
+                <br>
+                <br>
+
+
+                <a href="/">
+
+                    ← Continue Shopping
+
+                </a>
+
+            </div>
+
+        </div>
+
+    </main>
+
+
+
+    <!-- Footer -->
+
+    <footer>
+
+        <p>
+            © 2026 ShopEasy. All rights reserved.
+        </p>
+
+    </footer>
+
+
+
+    <!-- JavaScript -->
+
+    <script
+        src="{{ url_for('static', filename='script.js') }}"
+    ></script>
+
+
+</body>
+
+</html>

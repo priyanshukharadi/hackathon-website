@@ -6,12 +6,10 @@ let cart = JSON.parse(localStorage.getItem("cart")) || [];
 // =========================
 
 function saveCart() {
-
     localStorage.setItem(
         "cart",
         JSON.stringify(cart)
     );
-
 }
 
 
@@ -24,7 +22,6 @@ function addToCart(product) {
     const existingProduct = cart.find(
         item => item.id === product.id
     );
-
 
     if (existingProduct) {
 
@@ -42,13 +39,9 @@ function addToCart(product) {
 
     }
 
-
     saveCart();
 
     updateCartCount();
-
-    alert(product.name + " added to cart! 🛒");
-
 }
 
 
@@ -60,24 +53,23 @@ function updateCartCount() {
 
     let totalQuantity = 0;
 
-
     cart.forEach(function(product) {
 
-        totalQuantity += Number(product.quantity);
+        totalQuantity += Number(
+            product.quantity
+        );
 
     });
-
 
     const cartCount =
         document.getElementById("cart-count");
 
-
     if (cartCount) {
 
-        cartCount.textContent = totalQuantity;
+        cartCount.textContent =
+            totalQuantity;
 
     }
-
 }
 
 
@@ -90,26 +82,18 @@ function displayCart() {
     const cartItems =
         document.getElementById("cart-items");
 
-
     const cartTotal =
         document.getElementById("cart-total");
 
-
-    // This page doesn't have a cart
     if (!cartItems) {
-
         return;
-
     }
 
-
     cartItems.innerHTML = "";
-
 
     let total = 0;
 
 
-    // Empty cart
     if (cart.length === 0) {
 
         cartItems.innerHTML = `
@@ -130,15 +114,12 @@ function displayCart() {
             </div>
         `;
 
-
         cartTotal.textContent = "₹0";
 
         return;
-
     }
 
 
-    // Create each cart item
     cart.forEach(function(product, index) {
 
         const price =
@@ -150,13 +131,11 @@ function displayCart() {
         const productTotal =
             price * quantity;
 
-
         total += productTotal;
 
 
         const cartItem =
             document.createElement("div");
-
 
         cartItem.className =
             "cart-item";
@@ -199,9 +178,7 @@ function displayCart() {
             </div>
 
             <div class="cart-product-total">
-
                 ₹${productTotal}
-
             </div>
 
             <button
@@ -214,16 +191,13 @@ function displayCart() {
 
         `;
 
-
         cartItems.appendChild(cartItem);
 
     });
 
 
-    // Display total
     cartTotal.textContent =
         "₹" + total;
-
 }
 
 
@@ -236,13 +210,11 @@ function increaseQuantity(index) {
     cart[index].quantity =
         Number(cart[index].quantity) + 1;
 
-
     saveCart();
 
     displayCart();
 
     updateCartCount();
-
 }
 
 
@@ -265,13 +237,11 @@ function decreaseQuantity(index) {
 
     }
 
-
     saveCart();
 
     displayCart();
 
     updateCartCount();
-
 }
 
 
@@ -283,13 +253,11 @@ function removeFromCart(index) {
 
     cart.splice(index, 1);
 
-
     saveCart();
 
     displayCart();
 
     updateCartCount();
-
 }
 
 
@@ -302,7 +270,6 @@ function scrollToProducts() {
     const productsSection =
         document.getElementById("products");
 
-
     if (productsSection) {
 
         productsSection.scrollIntoView({
@@ -310,12 +277,11 @@ function scrollToProducts() {
         });
 
     }
-
 }
 
 
 // =========================
-// PRODUCT BUTTONS
+// HOMEPAGE ADD TO CART
 // =========================
 
 const cartButtons =
@@ -348,13 +314,54 @@ cartButtons.forEach(function(button) {
 
             };
 
-
             addToCart(product);
 
         }
     );
 
 });
+
+
+// =========================
+// PRODUCT DETAILS ADD TO CART
+// =========================
+
+const detailsCartButton =
+    document.querySelector(
+        ".details-cart-button"
+    );
+
+
+if (detailsCartButton) {
+
+    detailsCartButton.addEventListener(
+        "click",
+        function() {
+
+            const product = {
+
+                id: Number(
+                    detailsCartButton.dataset.id
+                ),
+
+                name:
+                    detailsCartButton.dataset.name,
+
+                price: Number(
+                    detailsCartButton.dataset.price
+                ),
+
+                image:
+                    detailsCartButton.dataset.image
+
+            };
+
+            addToCart(product);
+
+        }
+    );
+
+}
 
 
 // =========================
@@ -378,9 +385,173 @@ if (shopNowButton) {
 
 
 // =========================
-// INITIAL LOAD
+// PAGE LOAD
 // =========================
 
 updateCartCount();
 
 displayCart();
+
+// =========================
+// PRODUCT SEARCH
+// =========================
+
+const searchInput =
+    document.getElementById(
+        "product-search"
+    );
+
+
+if (searchInput) {
+
+    searchInput.addEventListener(
+        "input",
+        function() {
+
+            const searchText =
+                searchInput.value
+                    .toLowerCase()
+                    .trim();
+
+
+            const productCards =
+                document.querySelectorAll(
+                    ".product-card"
+                );
+
+
+            productCards.forEach(
+                function(card) {
+
+                    const productName =
+                        card
+                            .querySelector("h3")
+                            .textContent
+                            .toLowerCase();
+
+
+                    const category =
+                        card
+                            .querySelector(".category")
+                            .textContent
+                            .toLowerCase();
+
+
+                    const description =
+                        card
+                            .querySelector(
+                                "p:not(.category):not(.price)"
+                            )
+                            .textContent
+                            .toLowerCase();
+
+
+                    const matches =
+                        productName.includes(
+                            searchText
+                        ) ||
+                        category.includes(
+                            searchText
+                        ) ||
+                        description.includes(
+                            searchText
+                        );
+
+
+                    if (matches) {
+
+                        card.style.display =
+                            "";
+
+                    } else {
+
+                        card.style.display =
+                            "none";
+
+                    }
+
+                }
+            );
+
+        }
+    );
+
+}
+// =========================
+// CATEGORY FILTER
+// =========================
+
+const categoryCards =
+    document.querySelectorAll(
+        ".category-card"
+    );
+
+
+categoryCards.forEach(function(card) {
+
+    card.addEventListener(
+        "click",
+        function() {
+
+            const selectedCategory =
+                card.dataset.category;
+
+
+            const productCards =
+                document.querySelectorAll(
+                    ".product-card"
+                );
+
+
+            productCards.forEach(
+                function(productCard) {
+
+                    const productCategory =
+                        productCard
+                            .querySelector(
+                                ".category"
+                            )
+                            .textContent
+                            .trim();
+
+
+                    if (
+                        selectedCategory === "All" ||
+                        productCategory ===
+                        selectedCategory
+                    ) {
+
+                        productCard.style.display =
+                            "";
+
+                    } else {
+
+                        productCard.style.display =
+                            "none";
+
+                    }
+
+                }
+            );
+
+
+            // Scroll to products
+
+            const productsSection =
+                document.getElementById(
+                    "products"
+                );
+
+
+            if (productsSection) {
+
+                productsSection.scrollIntoView({
+                    behavior: "smooth"
+                });
+
+            }
+
+        }
+    );
+
+});

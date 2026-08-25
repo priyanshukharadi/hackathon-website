@@ -12,7 +12,7 @@
 
 <body>
 
-    <!-- Navigation Bar -->
+    <!-- Navigation -->
     <header class="navbar">
 
         <div class="logo">
@@ -20,19 +20,19 @@
         </div>
 
         <nav>
-            <a href="#">Home</a>
+            <a href="/">Home</a>
             <a href="#products">Products</a>
             <a href="#categories">Categories</a>
         </nav>
 
         <a href="/cart" class="cart-link">
-             🛒 Cart <span id="cart-count">0</span>
+            🛒 Cart <span id="cart-count">0</span>
         </a>
 
     </header>
 
 
-    <!-- Hero Section -->
+    <!-- Hero -->
     <section class="hero">
 
         <div class="hero-content">
@@ -59,37 +59,69 @@
 
         <div class="category-container">
 
-            <div class="category-card">
-                📱
-                <h3>Electronics</h3>
-            </div>
+    <div
+        class="category-card"
+        data-category="Electronics"
+    >
+        📱
+        <h3>Electronics</h3>
+    </div>
 
-            <div class="category-card">
-                👕
-                <h3>Clothing</h3>
-            </div>
 
-            <div class="category-card">
-                👟
-                <h3>Shoes</h3>
-            </div>
+    <div
+        class="category-card"
+        data-category="Clothing"
+    >
+        👕
+        <h3>Clothing</h3>
+    </div>
 
-            <div class="category-card">
-                📚
-                <h3>Books</h3>
-            </div>
 
-            <div class="category-card">
-                🏠
-                <h3>Home</h3>
-            </div>
+    <div
+        class="category-card"
+        data-category="Shoes"
+    >
+        👟
+        <h3>Shoes</h3>
+    </div>
 
-            <div class="category-card">
-                🎒
-                <h3>Accessories</h3>
-            </div>
 
-        </div>
+    <div
+        class="category-card"
+        data-category="Books"
+    >
+        📚
+        <h3>Books</h3>
+    </div>
+
+
+    <div
+        class="category-card"
+        data-category="Home"
+    >
+        🏠
+        <h3>Home</h3>
+    </div>
+
+
+    <div
+        class="category-card"
+        data-category="Accessories"
+    >
+        🎒
+        <h3>Accessories</h3>
+    </div>
+
+
+    <div
+        class="category-card all-products-card"
+        data-category="All"
+    >
+        🛍️
+        <h3>All Products</h3>
+    </div>
+
+    </div>
 
     </section>
 
@@ -97,7 +129,30 @@
     <!-- Products -->
     <section class="products" id="products">
 
+        <div class="products-heading">
+
+    <div>
         <h2>Popular Products</h2>
+
+        <p>
+            Find something you love.
+        </p>
+    </div>
+
+    <div class="search-box">
+
+        <input
+            type="text"
+            id="product-search"
+            placeholder="Search products..."
+            autocomplete="off"
+        >
+
+        <span>🔎</span>
+
+    </div>
+
+         </div>
 
         <div class="product-container">
 
@@ -125,14 +180,28 @@
                     {{ product["description"] }}
                 </p>
 
+
+                <!-- Add to Cart -->
+
                 <button
                     class="add-to-cart-button"
                     data-id="{{ product['id'] }}"
                     data-name="{{ product['name'] }}"
                     data-price="{{ product['price'] }}"
-                    data-image="{{ product['image'] }}">
+                    data-image="{{ product['image'] }}"
+                >
                     Add to Cart
                 </button>
+
+
+                <!-- View Details -->
+
+                <a
+                    class="view-product-button"
+                    href="/product/{{ product['id'] }}"
+                >
+                    View Details
+                </a>
 
             </div>
 
@@ -144,6 +213,7 @@
 
 
     <!-- Footer -->
+
     <footer>
 
         <p>
@@ -154,7 +224,10 @@
 
 
     <!-- JavaScript -->
-    <script src="{{ url_for('static', filename='script.js') }}"></script>
+
+    <script
+        src="{{ url_for('static', filename='script.js') }}"
+    ></script>
 
 </body>
 
