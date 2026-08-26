@@ -754,7 +754,9 @@ if (checkoutForm) {
                     address,
 
                 total:
-                    total
+                    total,
+                items:
+                    cart 
 
             };
 

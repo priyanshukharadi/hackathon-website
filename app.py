@@ -88,21 +88,27 @@ def create_order():
     phone = data.get("phone")
     address = data.get("address")
     total = data.get("total")
+    items = data.get("items")
 
+
+    # Validate customer information
 
     if not all([
         customer_name,
         email,
         phone,
         address,
-        total
+        total,
+        items
     ]):
 
         return jsonify({
             "success": False,
-            "message": "All fields are required."
+            "message": "All order information is required."
         }), 400
 
+
+    # Validate total
 
     try:
 
@@ -116,32 +122,115 @@ def create_order():
         }), 400
 
 
-    connection = get_connection()
+    # Validate cart
 
+    if not isinstance(items, list) or len(items) == 0:
+
+        return jsonify({
+            "success": False,
+            "message": "Your cart is empty."
+        }), 400
+
+
+    connection = get_connection()
 
     cursor = connection.cursor()
 
 
-    cursor.execute(
-        """
-        INSERT INTO orders
-        (customer_name, email, phone, address, total)
-        VALUES (?, ?, ?, ?, ?)
-        """,
-        (
-            customer_name,
-            email,
-            phone,
-            address,
-            total
+    try:
+
+        # -------------------------
+        # CREATE ORDER
+        # -------------------------
+
+        cursor.execute(
+            """
+            INSERT INTO orders
+            (
+                customer_name,
+                email,
+                phone,
+                address,
+                total
+            )
+            VALUES (?, ?, ?, ?, ?)
+            """,
+            (
+                customer_name,
+                email,
+                phone,
+                address,
+                total
+            )
         )
-    )
 
 
-    order_id = cursor.lastrowid
+        order_id = cursor.lastrowid
 
 
-    connection.commit()
+        # -------------------------
+        # CREATE ORDER ITEMS
+        # -------------------------
+
+        for item in items:
+
+            product_id = item.get("id")
+            product_name = item.get("name")
+            price = item.get("price")
+            quantity = item.get("quantity")
+
+
+            if not all([
+                product_id,
+                product_name,
+                price,
+                quantity
+            ]):
+
+                raise ValueError(
+                    "Invalid product information."
+                )
+
+
+            cursor.execute(
+                """
+                INSERT INTO order_items
+                (
+                    order_id,
+                    product_id,
+                    product_name,
+                    price,
+                    quantity
+                )
+                VALUES (?, ?, ?, ?, ?)
+                """,
+                (
+                    order_id,
+                    product_id,
+                    product_name,
+                    float(price),
+                    int(quantity)
+                )
+            )
+
+
+        connection.commit()
+
+
+    except Exception as error:
+
+        connection.rollback()
+
+        connection.close()
+
+        print("Order error:", error)
+
+
+        return jsonify({
+            "success": False,
+            "message": "Could not save the order."
+        }), 500
+
 
     connection.close()
 
