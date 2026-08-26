@@ -2,18 +2,14 @@ from flask import Flask, render_template, request, jsonify
 
 from database import (
     get_connection,
-    create_database,
-    create_orders_table,
-    create_order_items_table
+    initialize_database
 )
 
 
 app = Flask(__name__)
 
 
-create_database()
-create_orders_table()
-create_order_items_table()
+initialize_database()
 
 
 # =========================

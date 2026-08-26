@@ -212,7 +212,7 @@ def add_products():
 # DATABASE SETUP
 # =========================
 
-if __name__ == "__main__":
+def initialize_database():
 
     create_database()
 
@@ -220,6 +220,32 @@ if __name__ == "__main__":
 
     create_order_items_table()
 
+    connection = get_connection()
+
+    cursor = connection.cursor()
+
+    cursor.execute(
+        "SELECT COUNT(*) FROM products"
+    )
+
+    product_count = cursor.fetchone()[0]
+
+    connection.close()
+
+
+    if product_count == 0:
+
+        add_products()
+
+        print(
+            "Products added to database! 🛍️"
+        )
+
+
+if __name__ == "__main__":
+
+    initialize_database()
+
     print(
-        "Database and order items table ready! 🗄️"
+        "Database ready! 🗄️"
     )
