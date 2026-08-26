@@ -1,7 +1,26 @@
 import sqlite3
+import os
 
 
-DATABASE = "database/shop.db"
+BASE_DIR = os.path.dirname(
+    os.path.abspath(__file__)
+)
+
+DATABASE_DIR = os.path.join(
+    BASE_DIR,
+    "database"
+)
+
+DATABASE = os.path.join(
+    DATABASE_DIR,
+    "shop.db"
+)
+
+
+os.makedirs(
+    DATABASE_DIR,
+    exist_ok=True
+)
 
 
 # =========================
