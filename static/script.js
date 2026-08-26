@@ -555,3 +555,277 @@ categoryCards.forEach(function(card) {
     );
 
 });
+// =========================
+// CHECKOUT SUMMARY
+// =========================
+
+function displayCheckout() {
+
+    const checkoutItems =
+        document.getElementById(
+            "checkout-items"
+        );
+
+    const checkoutTotal =
+        document.getElementById(
+            "checkout-total"
+        );
+
+
+    if (!checkoutItems) {
+        return;
+    }
+
+
+    checkoutItems.innerHTML = "";
+
+
+    let total = 0;
+
+
+    // Empty cart
+
+    if (cart.length === 0) {
+
+        checkoutItems.innerHTML = `
+            <p>
+                Your cart is empty.
+            </p>
+
+            <a href="/">
+                Continue Shopping
+            </a>
+        `;
+
+        checkoutTotal.textContent = "₹0";
+
+        return;
+    }
+
+
+    // Display products
+
+    cart.forEach(function(product) {
+
+        const price =
+            Number(product.price);
+
+        const quantity =
+            Number(product.quantity);
+
+        const productTotal =
+            price * quantity;
+
+
+        total += productTotal;
+
+
+        const checkoutItem =
+            document.createElement("div");
+
+
+        checkoutItem.className =
+            "checkout-item";
+
+
+        checkoutItem.innerHTML = `
+
+            <div class="checkout-item-image">
+                ${product.image}
+            </div>
+
+
+            <div class="checkout-item-info">
+
+                <h3>
+                    ${product.name}
+                </h3>
+
+                <p>
+                    ₹${price} × ${quantity}
+                </p>
+
+            </div>
+
+
+            <div class="checkout-item-price">
+
+                ₹${productTotal}
+
+            </div>
+
+        `;
+
+
+        checkoutItems.appendChild(
+            checkoutItem
+        );
+
+    });
+
+
+    checkoutTotal.textContent =
+        "₹" + total;
+
+}
+
+
+// Load checkout summary
+
+displayCheckout();
+// =========================
+// PLACE ORDER
+// =========================
+
+const checkoutForm =
+    document.getElementById(
+        "checkout-form"
+    );
+
+
+if (checkoutForm) {
+
+    checkoutForm.addEventListener(
+        "submit",
+        async function(event) {
+
+            event.preventDefault();
+
+
+            if (cart.length === 0) {
+
+                alert(
+                    "Your cart is empty."
+                );
+
+                return;
+
+            }
+
+
+            const customerName =
+                document.getElementById(
+                    "customer-name"
+                ).value.trim();
+
+
+            const email =
+                document.getElementById(
+                    "customer-email"
+                ).value.trim();
+
+
+            const phone =
+                document.getElementById(
+                    "customer-phone"
+                ).value.trim();
+
+
+            const address =
+                document.getElementById(
+                    "customer-address"
+                ).value.trim();
+
+
+            let total = 0;
+
+
+            cart.forEach(function(product) {
+
+                total +=
+                    Number(product.price) *
+                    Number(product.quantity);
+
+            });
+
+
+            const orderData = {
+
+                customer_name:
+                    customerName,
+
+                email:
+                    email,
+
+                phone:
+                    phone,
+
+                address:
+                    address,
+
+                total:
+                    total
+
+            };
+
+
+            try {
+
+                const response =
+                    await fetch(
+                        "/api/orders",
+                        {
+                            method: "POST",
+
+                            headers: {
+                                "Content-Type":
+                                    "application/json"
+                            },
+
+                            body:
+                                JSON.stringify(
+                                    orderData
+                                )
+                        }
+                    );
+
+
+                const result =
+                    await response.json();
+
+
+                if (result.success) {
+
+                    // Empty cart
+
+                    cart = [];
+
+                    saveCart();
+
+                    updateCartCount();
+
+                    displayCheckout();
+
+
+                    // Go to order confirmation
+
+                     window.location.href =
+                         "/order-success/" +
+                         result.order_id;
+
+                } else {
+
+                    alert(
+                        result.message
+                    );
+
+                }
+
+            } catch (error) {
+
+                console.error(
+                    "Order error:",
+                    error
+                );
+
+
+                alert(
+                    "Something went wrong while placing your order."
+                );
+
+            }
+
+        }
+    );
+
+}

@@ -106,12 +106,33 @@ def add_products():
     connection.commit()
 
     connection.close()
+def create_orders_table():
+
+    connection = get_connection()
+
+    cursor = connection.cursor()
+
+    cursor.execute("""
+        CREATE TABLE IF NOT EXISTS orders (
+            id INTEGER PRIMARY KEY AUTOINCREMENT,
+            customer_name TEXT NOT NULL,
+            email TEXT NOT NULL,
+            phone TEXT NOT NULL,
+            address TEXT NOT NULL,
+            total REAL NOT NULL,
+            created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
+        )
+    """)
+
+    connection.commit()
+
+    connection.close()
 
 
 if __name__ == "__main__":
 
     create_database()
 
-    add_products()
+    create_orders_table()
 
-    print("Database and products created successfully! 🛒")
+    print("Database and orders table ready! 🗄️")

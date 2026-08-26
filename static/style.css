@@ -1209,3 +1209,473 @@ footer p {
 .all-products-card:hover {
     background-color: #eff6ff;
 }
+/* =====================================================
+   CHECKOUT PAGE
+===================================================== */
+
+.checkout-page {
+    max-width: 1200px;
+
+    min-height: 70vh;
+
+    margin: auto;
+
+    padding: 70px 6%;
+}
+
+
+.checkout-page > h1 {
+    margin-bottom: 40px;
+
+    text-align: center;
+
+    font-size: 40px;
+
+    letter-spacing: -1px;
+}
+
+
+/* Main checkout layout */
+
+.checkout-container {
+    display: grid;
+
+    grid-template-columns:
+        1.4fr 0.8fr;
+
+    gap: 30px;
+
+    align-items: start;
+}
+
+
+/* Checkout cards */
+
+.checkout-form,
+.checkout-summary {
+    background: white;
+
+    border: 1px solid var(--border);
+
+    border-radius: 16px;
+
+    box-shadow: var(--shadow-sm);
+
+    padding: 30px;
+}
+
+
+.checkout-form h2,
+.checkout-summary h2 {
+    margin-bottom: 25px;
+
+    font-size: 22px;
+}
+
+
+/* Form */
+
+.checkout-form form {
+    display: flex;
+
+    flex-direction: column;
+
+    gap: 8px;
+}
+
+
+.checkout-form label {
+    margin-top: 12px;
+
+    font-size: 14px;
+
+    font-weight: 700;
+
+    color: var(--text);
+}
+
+
+.checkout-form input,
+.checkout-form textarea {
+    width: 100%;
+
+    padding: 13px 14px;
+
+    border: 1px solid var(--border);
+
+    border-radius: 9px;
+
+    outline: none;
+
+    background: #fafafa;
+
+    color: var(--text);
+
+    font-family: inherit;
+
+    font-size: 14px;
+
+    transition:
+        border-color 0.2s,
+        box-shadow 0.2s,
+        background 0.2s;
+}
+
+
+.checkout-form input:focus,
+.checkout-form textarea:focus {
+    border-color: var(--primary);
+
+    background: white;
+
+    box-shadow:
+        0 0 0 3px rgba(
+            37,
+            99,
+            235,
+            0.1
+        );
+}
+
+
+.checkout-form textarea {
+    resize: vertical;
+
+    min-height: 110px;
+}
+
+
+/* Order summary */
+
+.checkout-summary {
+    position: sticky;
+
+    top: 100px;
+}
+
+
+#checkout-items {
+    display: flex;
+
+    flex-direction: column;
+
+    gap: 15px;
+
+    margin-bottom: 25px;
+}
+
+
+.checkout-item {
+    display: flex;
+
+    align-items: center;
+
+    gap: 12px;
+
+    padding-bottom: 15px;
+
+    border-bottom: 1px solid var(--border);
+}
+
+
+.checkout-item-image {
+    width: 50px;
+
+    height: 50px;
+
+    display: flex;
+
+    align-items: center;
+
+    justify-content: center;
+
+    flex-shrink: 0;
+
+    border-radius: 8px;
+
+    background: #f1f5f9;
+
+    font-size: 25px;
+}
+
+
+.checkout-item-info {
+    flex: 1;
+}
+
+
+.checkout-item-info h3 {
+    font-size: 14px;
+
+    margin-bottom: 2px;
+}
+
+
+.checkout-item-info p {
+    color: var(--muted);
+
+    font-size: 13px;
+}
+
+
+.checkout-item-price {
+    font-size: 14px;
+
+    font-weight: 700;
+}
+
+
+/* Total */
+
+.checkout-total {
+    display: flex;
+
+    align-items: center;
+
+    justify-content: space-between;
+
+    padding-top: 20px;
+
+    border-top: 2px solid var(--border);
+
+    font-size: 20px;
+}
+
+
+.checkout-total strong {
+    color: var(--primary);
+
+    font-size: 24px;
+}
+
+
+/* Place order */
+
+.place-order-button {
+    width: 100%;
+
+    margin-top: 25px;
+
+    padding: 14px;
+
+    border: none;
+
+    border-radius: 10px;
+
+    background: var(--primary);
+
+    color: white;
+
+    font-size: 16px;
+
+    font-weight: 700;
+
+    cursor: pointer;
+
+    transition:
+        background 0.2s,
+        transform 0.2s;
+}
+
+
+.place-order-button:hover {
+    background: var(--primary-dark);
+
+    transform: translateY(-1px);
+}
+
+
+/* Mobile */
+
+@media (max-width: 800px) {
+
+    .checkout-page {
+        padding: 50px 5%;
+    }
+
+
+    .checkout-container {
+        grid-template-columns: 1fr;
+    }
+
+
+    .checkout-summary {
+        position: static;
+
+        order: -1;
+    }
+
+}
+
+
+@media (max-width: 500px) {
+
+    .checkout-page > h1 {
+        font-size: 32px;
+    }
+
+
+    .checkout-form,
+    .checkout-summary {
+        padding: 22px;
+    }
+
+}
+/* =====================================================
+   ORDER SUCCESS
+===================================================== */
+
+.success-page {
+    min-height: 70vh;
+
+    display: flex;
+
+    align-items: center;
+
+    justify-content: center;
+
+    padding: 70px 20px;
+}
+
+
+.success-card {
+    width: 100%;
+
+    max-width: 600px;
+
+    padding: 50px 40px;
+
+    text-align: center;
+
+    background: white;
+
+    border: 1px solid var(--border);
+
+    border-radius: 20px;
+
+    box-shadow: var(--shadow-md);
+}
+
+
+.success-icon {
+    width: 80px;
+
+    height: 80px;
+
+    display: flex;
+
+    align-items: center;
+
+    justify-content: center;
+
+    margin: 0 auto 25px;
+
+    border-radius: 50%;
+
+    background: #dcfce7;
+
+    color: #16a34a;
+
+    font-size: 42px;
+
+    font-weight: 800;
+}
+
+
+.success-card h1 {
+    margin-bottom: 15px;
+
+    font-size: 36px;
+}
+
+
+.success-message {
+    max-width: 450px;
+
+    margin: 0 auto 25px;
+
+    color: var(--muted);
+
+    font-size: 16px;
+
+    line-height: 1.7;
+}
+
+
+.order-number {
+    display: inline-block;
+
+    padding: 12px 20px;
+
+    margin-bottom: 20px;
+
+    border-radius: 10px;
+
+    background: #eff6ff;
+
+    color: var(--primary);
+
+    font-size: 16px;
+
+    font-weight: 700;
+}
+
+
+.order-number strong {
+    margin-left: 5px;
+
+    font-size: 20px;
+}
+
+
+.success-info {
+    margin-bottom: 30px;
+
+    color: var(--muted);
+
+    font-size: 14px;
+}
+
+
+.continue-shopping-button {
+    display: inline-block;
+
+    padding: 13px 25px;
+
+    border-radius: 9px;
+
+    background: var(--primary);
+
+    color: white;
+
+    text-decoration: none;
+
+    font-size: 15px;
+
+    font-weight: 700;
+
+    transition:
+        background 0.2s,
+        transform 0.2s;
+}
+
+
+.continue-shopping-button:hover {
+    background: var(--primary-dark);
+
+    transform: translateY(-2px);
+}
+
+
+@media (max-width: 500px) {
+
+    .success-card {
+        padding: 40px 22px;
+    }
+
+
+    .success-card h1 {
+        font-size: 30px;
+    }
+
+}

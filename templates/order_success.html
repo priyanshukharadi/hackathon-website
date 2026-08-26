@@ -1,0 +1,139 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta charset="UTF-8">
+
+    <meta
+        name="viewport"
+        content="width=device-width, initial-scale=1.0"
+    >
+
+    <title>
+        Order Confirmed - ShopEasy
+    </title>
+
+    <link
+        rel="stylesheet"
+        href="{{ url_for('static', filename='style.css') }}"
+    >
+
+</head>
+
+
+<body>
+
+
+    <!-- Navigation -->
+
+    <header class="navbar">
+
+        <div class="logo">
+            🛒 ShopEasy
+        </div>
+
+
+        <nav>
+
+            <a href="/">
+                Home
+            </a>
+
+            <a href="/#products">
+                Products
+            </a>
+
+        </nav>
+
+
+        <a href="/cart" class="cart-link">
+
+            🛒 Cart
+            <span id="cart-count">0</span>
+
+        </a>
+
+    </header>
+
+
+
+    <!-- Success -->
+
+    <main class="success-page">
+
+        <div class="success-card">
+
+
+            <div class="success-icon">
+                ✓
+            </div>
+
+
+            <h1>
+                Order Confirmed!
+            </h1>
+
+
+            <p class="success-message">
+
+                Thank you for your order.
+
+                Your order has been
+                successfully placed.
+
+            </p>
+
+
+            <div class="order-number">
+
+                Order #
+
+                <strong>
+                    {{ order_id }}
+                </strong>
+
+            </div>
+
+
+            <p class="success-info">
+
+                We'll use the contact information
+                you provided to process your order.
+
+            </p>
+
+
+            <a
+                href="/"
+                class="continue-shopping-button"
+            >
+
+                Continue Shopping
+
+            </a>
+
+        </div>
+
+    </main>
+
+
+
+    <!-- Footer -->
+
+    <footer>
+
+        <p>
+            © 2026 ShopEasy. All rights reserved.
+        </p>
+
+    </footer>
+
+
+    <script
+        src="{{ url_for('static', filename='script.js') }}"
+    ></script>
+
+</body>
+
+</html>
